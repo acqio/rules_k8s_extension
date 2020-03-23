@@ -1,0 +1,12 @@
+load("@rules_k8s_extension//:index.bzl", "k8s_configmap")
+
+k8s_configmap(
+    name = "foo-config",
+    srcs = {
+        "conf/foo.conf" : "foo.conf",
+    },
+    namespace = "namespace",
+    labels = {
+        "app" : "bar"
+    }
+)
