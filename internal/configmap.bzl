@@ -18,14 +18,8 @@ def _k8s_configmap_impl(ctx):
   args.add(ctx.files._yq[0].path)
   args.add(ctx.outputs.out.path)
 
-  command = ["$1", "create", "configmap", "--dry-run", "$2", "$3", "--output", "yaml"]
-
-  if ctx.attr.namespace.strip():
-    command+=[
-      "|",
-      "$4",
-      "w",
-      "- metadata.namespace", ctx.attr.namespace.strip()]
+  command=["$1", "create", "configmap", "--dry-run", "$2", "$3", "--output", "yaml"]
+  command+=["|", "$4", "w", "- metadata.namespace", ctx.attr.namespace.strip()]
 
   if ctx.attr.labels.items():
     command+=[
@@ -42,11 +36,11 @@ def _k8s_configmap_impl(ctx):
     arguments = [args]
   )
 
-  # return [
-  #   DefaultInfo(
-  #     files = depset([ctx.outputs.out])
-  #   ),
-  # ]
+  return [
+    DefaultInfo(
+      files = depset([ctx.outputs.out])
+    ),
+  ]
 
 k8s_configmap = rule(
     implementation = _k8s_configmap_impl,
@@ -56,7 +50,9 @@ k8s_configmap = rule(
             allow_empty = False,
             allow_files = True
         ),
-        "namespace": attr.string(),
+        "namespace": attr.string(
+          default = "default"
+        ),
         "labels": attr.string_dict(),
         "_kubectl": attr.label(
             default = Label("@kubectl//file"),
