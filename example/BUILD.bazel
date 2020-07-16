@@ -1,12 +1,48 @@
-load("@rules_k8s_extension//:index.bzl", "k8s_configmap")
+load("@rules_k8s_extension//:index.bzl", "k8s_configmap", "k8s_secret")
+
+genrule(
+    name = "foo",
+    srcs = [],
+    outs = [
+        "foo.json",
+    ],
+    cmd = "echo '{\"key\": \"foo\"}' > \"$(location foo.json)\"",
+)
 
 k8s_configmap(
     name = "foo-config",
-    srcs = {
-        "conf/foo.conf" : "foo.conf",
+    annotations = {
+        "kubernetes.io/service-account.name": "default",
     },
-    namespace = "namespace",
+    from_file = {
+        "conf/foo.conf": "foo.conf",
+        "conf/bar.conf": "bar.conf",
+        ":foo": "foo.json",
+    },
+    from_literal = {
+        "key": "value",
+    },
     labels = {
-        "app" : "bar"
-    }
+        "app": "app_name",
+        "version": "1",
+    },
+)
+
+k8s_secret(
+    name = "foo-secret",
+    annotations = {
+        "kubernetes.io/service-account.name": "default",
+    },
+    from_file = {
+        "conf/foo.conf": "foo.conf",
+        "conf/bar.conf": "bar.conf",
+        ":foo": "foo.json",
+    },
+    from_literal = {
+        "key": "value",
+    },
+    labels = {
+        "app": "app_name",
+        "version": "1",
+    },
 )

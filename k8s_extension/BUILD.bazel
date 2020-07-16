@@ -18,11 +18,6 @@ licenses(["notice"])  # Apache 2.0
 filegroup(
     name = "all_files",
     testonly = True,
-    srcs = [
-        "BUILD.bazel",
-        "WORKSPACE",
-        "//internal:all_files",
-        "//k8s_extension:all_files",
-    ],
+    srcs = glob(["**"]),
     visibility = ["//visibility:public"],
 )

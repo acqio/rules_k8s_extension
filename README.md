@@ -1,80 +1,37 @@
-# K8s Extension Rules for Bazel
+# Bazel Kubernetes Extension Rules
+
+## Overview
+
+[Bazel](https://bazel.build/) is a tool for building and testing software and can handle large, multi-language projects at scale.
+
+This project defines rules for creating the kubernetes artifacts of the kinds: `ConfigMap` and `Secret`.
 
 ## Setup
 
+Add the following to your `WORKSPACE` file to add the necessary external dependencies:
+
 ```python
-local_repository(
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
     name = "rules_k8s_extension",
-    path = "./tools/bazel_rules/rules_k8s_extension
+    urls = [
+        "https://github.com/acqio/rules_k8s_extension/archive/v0.1.tar.gz"
+    ],
+    strip_prefix = "rules_k8s_extension-0.1",
+    sha256 = "ea23e5bf938b226327420752b33b1c29f218aa6b2e5a93a712203a8e23ed6636",
 )
 
-load("@rules_k8s_extension//:repositories.bzl", "k8s_extension_repositories")
+load("@rules_k8s_extension//k8s_extension:repositories.bzl", k8s_extension_repositories = "repositories")
+
 k8s_extension_repositories()
 ```
 
 ## Rules
 
-<a name="k8s_configmap"></a>
-## k8s_configmap
+* [k8s_configmap](docs/configmap.md) ([example](examples/))
+* [k8s_secret](docs/secret.md) ([example](examples/))
 
-```python
-k8s_configmap(name, srcs, namespace, labels)
-```
+## Limitations:
 
-For example, if the BUILD file contains:
-
-```python
-k8s_configmap(
-  name = "configmap"
-  srcs = {
-    "//path/to/target:foo" : "foo.conf"
-  },
-  namespace = "foo-ns",
-  labels = {
-    "bar" : "b",
-  }
-)
-```
-
-<table class="table table-condensed table-bordered table-params">
-  <colgroup>
-    <col class="col-param" />
-    <col class="param-description" />
-  </colgroup>
-  <thead>
-    <tr>
-      <th colspan="2">Attributes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>name</code></td>
-      <td>
-        <code>Name, required</code>
-        <p>A unique name for this rule.</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>srcs</code></td>
-      <td>
-        <code>Label keyed String dict, required</code>
-        <p>A dictionary where the key is a file and the value is a name.</p>
-        <p>The name is used in the data field of configmap.</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>namespace</code></td>
-      <td>
-        <code>String, optional.</code>
-        <p>The namespace for configmap.</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>labels</code></td>
-      <td>
-        <code>String dict, optional</code>
-        <p>Labels to be added to configmap.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+* The k8s_secret rule generate only ([Opaque](https://kubernetes.io/docs/concepts/configuration/secret/)) type artifact.
