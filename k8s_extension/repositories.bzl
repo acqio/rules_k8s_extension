@@ -29,6 +29,6 @@ def repositories():
             urls = [
                 "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64",
             ],
-            executable = True,
             sha256 = "11a830ffb72aad0eaa7640ef69637068f36469be4f68a93da822fbe454e998f8",
+            executable = True,
         )
