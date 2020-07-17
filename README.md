@@ -19,7 +19,7 @@ http_archive(
         "https://github.com/acqio/rules_k8s_extension/archive/v0.1.tar.gz"
     ],
     strip_prefix = "rules_k8s_extension-0.1",
-    sha256 = "ea23e5bf938b226327420752b33b1c29f218aa6b2e5a93a712203a8e23ed6636",
+    sha256 = "e78631a069cb645fd866110c654607be2dc1079b4a195251b5faba94ddfb1716",
 )
 
 load("@rules_k8s_extension//k8s_extension:repositories.bzl", k8s_extension_repositories = "repositories")
