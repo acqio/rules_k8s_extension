@@ -19,7 +19,7 @@ def repositories():
             urls = [
                 "https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl",
             ],
-            sha256 = "9daf696f5609ab41ac491886de5e87e35d8d3076f65defc27602a476800a97bf",
+            sha256 = "bb16739fcad964c197752200ff89d89aad7b118cb1de5725dc53fe924c40e3f7",
             executable = True,
         )
 
