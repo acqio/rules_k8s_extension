@@ -29,7 +29,7 @@ def create_command(ctx):
     args = _kube_from_args(ctx.attr.from_file.items(), ctx.attr.from_literal)
     outfile = ctx.outputs.out.path
 
-    command = [kubectl_path, "create", api, api_type, "--dry-run", name, args, "--output", "yaml"]
+    command = [kubectl_path, "create", api, api_type, "--dry-run=client", name, args, "--output", "yaml"]
 
     if namespace.strip():
         command += ["|", yq_path, "write", "- metadata.namespace", namespace.strip()]

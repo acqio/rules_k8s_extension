@@ -13,22 +13,20 @@ def repositories():
             strip_prefix = "bazel-skylib-1.0.2",
         )
 
-    if "kubectl" not in excludes:
-        http_file(
-            name = "kubectl",
-            urls = [
-                "https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl",
-            ],
-            sha256 = "bb16739fcad964c197752200ff89d89aad7b118cb1de5725dc53fe924c40e3f7",
-            executable = True,
-        )
+    http_file(
+        name = "kubectl",
+        urls = [
+            "https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl",
+        ],
+        sha256 = "62fcb9922164725c7cba5747562f2ad2f4d834ad0a458c1e4c794cc203dcdfb3",
+        executable = True,
+    )
 
-    if "yq" not in excludes:
-        http_file(
-            name = "yq",
-            urls = [
-                "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64",
-            ],
-            sha256 = "11a830ffb72aad0eaa7640ef69637068f36469be4f68a93da822fbe454e998f8",
-            executable = True,
-        )
+    http_file(
+        name = "yq",
+        urls = [
+            "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64",
+        ],
+        sha256 = "11a830ffb72aad0eaa7640ef69637068f36469be4f68a93da822fbe454e998f8",
+        executable = True,
+    )
