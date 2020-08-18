@@ -16,10 +16,10 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
     name = "rules_k8s_extension",
     urls = [
-        "https://github.com/acqio/rules_k8s_extension/archive/v0.2.tar.gz"
+        "https://github.com/acqio/rules_k8s_extension/archive/<revision>.tar.gz"
     ],
-    strip_prefix = "rules_k8s_extension-0.2",
-    sha256 = "75368799193f161a993ff81a24a8a52eaa58a5ee0025f08976eae5e892207240",
+    strip_prefix = "rules_k8s_extension-<revision>",
+    sha256 = "<sha256>",
 )
 
 load("@rules_k8s_extension//k8s_extension:repositories.bzl", k8s_extension_repositories = "repositories")

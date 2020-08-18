@@ -1,6 +1,9 @@
 def _kube_from_args(from_file, from_literal):
     _argument = []
 
+    if not (len(from_file) or len(from_literal)):
+        fail("At least one of the attributes must be filled: (from_file, from_literal).")
+
     for (srcs, value) in from_file:
         if len(srcs.files.to_list()) > 1:
             print(
