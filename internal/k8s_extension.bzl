@@ -16,7 +16,7 @@ _common_attr = {
     ),
     "annotations": attr.string_dict(),
     "from_file": attr.label_keyed_string_dict(
-        allow_empty = False,
+        allow_empty = True,
         allow_files = True,
     ),
     "from_literal": attr.string_dict(
